@@ -1,0 +1,61 @@
+#+TITLE: Preferelation: Filling Missing Data in a Preference Relationship Matrix. 
+#+AUTHOR: Emilio Torres Manzanera
+#+DATE: Time-stamp: <2021-04-17 11:00 emilio on emilio-XPS-15-9570>
+#+FILETAGS: 
+#+PROPERTY: header-args :results output :exports both :session :eval no
+
+
+
+
+* Install the package
+
+#+begin_src R
+  install.packages("devtools")
+  library(devtools)
+  install_github("kbroman/broman")
+  
+#+end_src
+
+* Using the package
+
+Load the package.
+#+begin_src R
+library(preferelation)
+#+end_src
+
+Create a matrix.
+#+begin_src R
+set.seed(1234)
+R <- crear_matriz_aleatoria(ndimension=5L,valordiagonal=10L)
+print(R)
+
+#+end_src
+
+One we have a arbitrary matrix R, we estimate the upper bound of the transitivity, U(R). The transitivity of any solution will be equal or lesser than this limit.
+
+#+begin_src R
+print(R) # Missing data
+calcular_cota_maxima_transitividad(R) # Upper bound U(R)
+#+end_src
+
+The first step is to check out if there is any row or column with no data, except in the diagonal.
+
+#+begin_src R
+  R <- sacar_nueva_matriz_sin_columnas_o_filas_perdidas(R,verbose=1L)
+  R
+#+end_src
+
+Obtain all the solutions. Rows of mpoints are the solutions.
+
+#+begin_src R
+mpoints <- obtener_puntos_optimos(R,combinacionesmaxi=10^7,verbose=3L)
+head(mpoints) # Names of the columns are the places of the missing data of RLos nombres de las columnas son los huecos de la matriz R
+dim(mpoints) 
+#+end_src
+
+Check out the transitivity of this solutions.
+#+begin_src R
+transi <- calcular_transitividad_matriz_puntos(R,mpoints)
+table(transi)
+#+end_src
+
