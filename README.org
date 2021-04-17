@@ -1,6 +1,6 @@
 #+TITLE: Preferelation: Filling Missing Data in a Preference Relationship Matrix. 
 #+AUTHOR: Emilio Torres Manzanera
-#+DATE: Time-stamp: <2021-04-17 11:00 emilio on emilio-XPS-15-9570>
+#+DATE: Time-stamp: <2021-04-17 11:25 emilio on emilio-XPS-15-9570>
 #+FILETAGS: 
 #+PROPERTY: header-args :results output :exports both :session :eval no
 
@@ -12,7 +12,7 @@
 #+begin_src R
   install.packages("devtools")
   library(devtools)
-  install_github("kbroman/broman")
+  install_github("emiliotorres/preferelation")
   
 #+end_src
 
